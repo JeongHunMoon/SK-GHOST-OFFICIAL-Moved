@@ -46,6 +46,7 @@ function sendFriends() {
             },
             fail: function (error) {
                 alert("친구에게 보내기 실패");
+                console.log(error);
             },
         });
     }
