@@ -43,10 +43,12 @@ function sendFriends() {
             },
             success: function (response) {
                 alert("친구에게 보내기 성공");
+                window.location.href = '/'; // 메인으로 redirect
             },
             fail: function (error) {
                 alert("친구에게 보내기 실패");
                 console.log(error);
+                window.location.href = '/'; // 메인으로 redirect
             },
         });
     }

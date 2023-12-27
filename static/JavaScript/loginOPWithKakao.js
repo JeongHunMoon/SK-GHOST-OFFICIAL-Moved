@@ -67,6 +67,7 @@ function loginOPWithKakao() {
                 friendUuid = payload.elements[0].uuid; // 친구목록 배열의 첫 번 째 친구 값을 저장.
                 console.log("내친구 uuid", friendUuid)
             }*/
+
         },
         fail: async function (err) { // 로그인 실패시 오류 값 반환
             alert("로그인 실패.. 다시 로그인 해주세요!")
