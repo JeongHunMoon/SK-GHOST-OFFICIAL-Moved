@@ -7,6 +7,7 @@
 
   <link rel = "stylesheet" href = "css/init.css">
   <link rel = "stylesheet" href = "css/login/login.css">
+  <link rel = "stylesheet" href = "css/OP/EndReport.css">
 
   <script type="text/JavaScript" src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
   <script> Kakao.init('2e39201190179fe7cd5eb25903daba8a'); </script> <!--SDK를 초기화 (애플리케이션>앱설정>앱키:JAVASCRIPTKEY -->
@@ -21,75 +22,9 @@
   <script src = "../../JavaScript/getFriendUuid.js"></script>
   <script src = "../../JavaScript/refreshAccessToken.js"></script>
   <script src = "../../JavaScript/questionFunction.js"></script>
+  <script src = "../../JavaScript/endReport.js"></script>
 
   <title>SK GHOST</title>
-
-  <style>
-    #inputWrapper {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 60%; /* Default width for larger screens */
-      max-width: 400px; /* Maximum width for smaller screens */
-      padding: 20px;
-      background: #ffffff;
-      border: 1px solid #e0e0e0;
-      text-align: center;
-      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
-    }
-
-    .inputRow {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      margin-bottom: 8px;
-    }
-
-    .inputColumn {
-      flex-basis: calc(50% - 8px); /* Adjust for gap between columns */
-      margin-bottom: 8px; /* Increased gap between rows */
-    }
-
-    .inputLabel {
-      display: block;
-      margin-bottom: 12px; /* Increased gap */
-      font-size: 14px;
-      color: #333333;
-    }
-
-    .inputField {
-      width: 50%;
-      padding: 8px;
-      box-sizing: border-box;
-      border: 1px solid #dcdcdc;
-      border-radius: 4px;
-      font-size: 14px; /* Adjusted font size */
-    }
-
-    #submitButton,
-    #cancelButton {
-      padding: 10px;
-      margin-right: 10px;
-      cursor: pointer;
-      background-color: #4caf50;
-      color: #ffffff;
-      border: none;
-      border-radius: 4px;
-      font-size: 14px;
-    }
-
-    #cancelButton {
-      background-color: #e1022a; /* Changed color */
-    }
-
-    @media screen and (max-width: 400px) {
-      .inputColumn {
-        flex-basis: 50%; /* Full width for smaller screens */
-      }
-    }
-  </style>
 </head>
 
 <body id = "body">
@@ -126,7 +61,7 @@
     <span id = "text3">Please ask me</span>
   </button>
 
-  <button onclick="showInputPopup()">Show Input Popup</button>
+  <button onclick="endReport()">Show Input Popup</button>
 </section>
 
 <!-- 메인 푸터  -->

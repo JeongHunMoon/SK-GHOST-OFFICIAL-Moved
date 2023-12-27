@@ -1,4 +1,5 @@
-function showInputPopup() {
+function endReport() {
+    console.log("??")
     // Create a wrapper for the input fields
     var inputWrapper = document.createElement('div');
     inputWrapper.id = 'inputWrapper';
@@ -72,37 +73,9 @@ function submitValues() {
 
     // Log the values to the console
     console.log('Values:', values);
-    return values;
-
-    // Remove the input fields and wrapper from the body
-
-}
-
-function cancelInput() {
-    // Clear input fields
-    for (var i = 1; i <= 8; i++) {
-        document.getElementById('value' + i).value = '';
-    }
-
-    // Remove the input fields and wrapper from the body
-    document.body.removeChild(document.getElementById('inputWrapper'));
-}
-
-function isValidNumber(value) {
-    // Check if the value is a valid number
-    return !isNaN(value) || value === '';
-}
 
 
-function endReport() {
-
-    //  팝업창을 먼저 띄우고, 3개 입력 받게 한다.
-    // 입력 받은 3개 값을 나에게 메시지 보내기로 보내면 된다.
-
-    let endReportText = null
-
-    endReportText = showInputPopup()
-    console.log("---")
+    let endReportText = "SOP: New: " + values[0] + "Done" + values[2] + "Open: " + values[4] + "Transferred: " + values[6] + "\nITS: New: " + values[1] + "Done: " + values[3] + "Waiting: " + values[5] + "Transferred: " + values[7]
     console.log(endReportText)
 
     Kakao.API.request({
@@ -125,4 +98,22 @@ function endReport() {
         .catch(function (err) {
             alert('error: ' + JSON.stringify(err));
         });
+
+    // Remove the input fields and wrapper from the body
+
+}
+
+function cancelInput() {
+    // Clear input fields
+    for (var i = 1; i <= 8; i++) {
+        document.getElementById('value' + i).value = '';
+    }
+
+    // Remove the input fields and wrapper from the body
+    document.body.removeChild(document.getElementById('inputWrapper'));
+}
+
+function isValidNumber(value) {
+    // Check if the value is a valid number
+    return !isNaN(value) || value === '';
 }
