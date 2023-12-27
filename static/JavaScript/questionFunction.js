@@ -4,6 +4,7 @@ function questionFunction() {
     Kakao.Auth.getStatusInfo(function(statusObj) {
         if (statusObj.status === 'connected') {
             // 사용자가 이미 로그인한 상태입니다.
+            console.log(statusObj)
             console.log(statusObj.user.kakao_account.profile.nickname)
 
             let userForAsking = statusObj.user.kakao_account.profile.nickname// 사용자의 프로필 설정 이름
@@ -13,24 +14,14 @@ function questionFunction() {
                 Kakao.API.request({
                     url: '/v1/api/talk/friends/message/default/send',
                     data: {
-                        //한번에 몇명까지 전송 가능한지 찾아봐야함.
-                        receiver_uuids: ['CzoJOAExCTgBLRwkEyISIhUmFzsKOgoyCjkBSA'], //value의 format > ['sdfdsf123213' , 'fas213123fd']
+                        receiver_uuids: ['CzoJOAExCTgBLRwkEyISIhUmFzsKOgoyCjkBSA'],
                         template_object: {
-                            object_type: 'feed',
-                            content: {
-                                title: '질문하기 테스트',
-                                description: userForAsking,
-                                image_url: 'http://mud-kage.kakao.co.kr/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png',
-                                link: {
-                                    web_url: 'https://developers.kakao.com',
-                                    mobile_web_url: 'https://developers.kakao.com',
-                                },
+                            object_type: 'text',  // 'text'로 설정하여 텍스트만 보내기
+                            text: userInput,
+                            link: {
+                                web_url: 'http://3.145.154.90:8080',
+                                mobile_web_url: 'http://3.145.154.90:8080',
                             },
-                            social: {
-                                like_count: 100,
-                                comment_count: 200,
-                            },
-                            button_title: '바로 확인',
                         },
                     },
                     success: function (response) {
@@ -73,7 +64,7 @@ function questionFunction() {
                             let results = xhr_check.responseText;
 
                             if (results === "False") { // DB에 등록되지 않은 사용자이므로 경고창 후 로그인 차단
-                                alert("Who are you?");
+                                alert("시스템에 등록되지 않은 사람입니다." + "\nGHOST 팀에게 문의해 주세요.")
                                 //unlinkWithKakao() // 추후 이 코드 활성화 시켜 ROC이외 외부 인원을 차단시켜야함.
                             }
                             else {
@@ -121,7 +112,7 @@ function questionFunction() {
                     }
                 },
                 fail: async function (err) { // 로그인 실패시 오류 값 반환
-                    alert("로그인 실패.. 다시 로그인 해주세요!")
+                    alert("시스템에 등록되지 않은 사람입니다." + "\nGHOST 팀에게 문의해 주세요.")
                 },
             })
         }
