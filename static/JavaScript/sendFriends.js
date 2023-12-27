@@ -30,8 +30,8 @@ function sendFriends() {
                         description: '왜 이제 전송이 안돼지?',
                         image_url: 'http://mud-kage.kakao.co.kr/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png',
                         link: {
-                            web_url: 'https://developers.kakao.com',
-                            mobile_web_url: 'https://developers.kakao.com',
+                            web_url: 'http://3.145.154.90:8080',
+                            mobile_web_url: 'http://3.145.154.90:8080',
                         },
                     },
                     social: {
