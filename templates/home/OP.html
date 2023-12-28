@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, minimum-scale = 1.0, user-scalable=no"> <!-- 현재 사용자가 접속한 디바이스의 가로 세로 길이에 맞게 앱 사이즈를 조절함. 초기, 최대, 최소 비율은 모두 1이며, 사용자가 드레그로 크기 조정 불가능-->
   <title>Document</title>
   <title>SK GHOST OP</title>
   <script type="text/JavaScript" src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
@@ -32,6 +32,7 @@
   <script src = "../../JavaScript/getFriendUuid.js"></script>
   <script src = "../../JavaScript/refreshAccessToken.js"></script>
   <script src = "../../JavaScript/endReport.js"></script>
+  <script src = "../../JavaScript/loginAram.js"></script>
 </head>
 
 <body id = "body">
@@ -50,20 +51,30 @@
   <!--section_botttom-->
   <div id = "section_bottom">
     <button id="custom-startwork-btn" onClick="sendToMe(); sendFriends()">
-      Start Work
+      <span class = "bntText">Start Work</span>
     </button>
 
     <button id="custom-endwork-btn" onClick="endReport()">
-      End Work
+      <span class = "bntText"> End Work</span>
     </button>
 
   </div>
 </div>
 
 <div id = "footer">
+  <span id ="footer_text">You are best</span>
 </div>
 
 </body>
+<script>
+
+  Kakao.Auth.getStatusInfo(function(statusObj) {
+    if (statusObj.status === 'connected') {
+      loginAram(statusObj.user.kakao_account.profile.profile_image_url, statusObj.user.properties.nickname)
+
+    }
+  })
+</script>
 
 </html>
 

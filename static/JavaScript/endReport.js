@@ -1,7 +1,6 @@
 function endReport() {
-    console.log("??")
     // Create a wrapper for the input fields
-    var inputWrapper = document.createElement('div');
+    let inputWrapper = document.createElement('div');
     inputWrapper.id = 'inputWrapper';
     inputWrapper.innerHTML = `
         <div class="inputRow">
@@ -56,14 +55,14 @@ function endReport() {
 
 function submitValues() {
     // Get the input values
-    var values = [];
-    for (var i = 1; i <= 8; i++) {
-        var inputValue = document.getElementById('value' + i).value.trim();
+    let values = [];
+    for (let i = 1; i <= 8; i++) {
+        let inputValue = document.getElementById('value' + i).value.trim();
         values.push(inputValue);
     }
 
     // Check if values are valid numbers
-    for (var i = 0; i < values.length; i++) {
+    for (let i = 0; i < values.length; i++) {
         if (!isValidNumber(values[i])) {
             alert('Please enter valid numeric values.');
             return; // Stop execution if values are not valid
@@ -74,8 +73,13 @@ function submitValues() {
     // Log the values to the console
     console.log('Values:', values);
 
+    for (let i = 0; i < values.length; i++) {
+        if (values[i] === "") {
+            values[i] = 0
+        }
+    }
 
-    let endReportText = "SOP: New: " + values[0] + "Done" + values[2] + "Open: " + values[4] + "Transferred: " + values[6] + "\nITS: New: " + values[1] + "Done: " + values[3] + "Waiting: " + values[5] + "Transferred: " + values[7]
+    let endReportText = "SOP: New: " + values[0] + " Done" + values[2] + " Open: " + values[4] + " Transferred: " + values[6] + "\nITS: New: " + values[1] + " Done: " + values[3] + " Waiting: " + values[5] + " Transferred: " + values[7]
     console.log(endReportText)
 
     Kakao.API.request({
@@ -93,10 +97,12 @@ function submitValues() {
         },
     })
         .then(function (res) {
-            alert('success: ' + JSON.stringify(res));
+            alert("Success. Goodbye.");
+            window.location.href = '/'; // 메인으로 redirect
         })
         .catch(function (err) {
             alert('error: ' + JSON.stringify(err));
+            window.location.href = '/'; // 메인으로 redirect
         });
 
     // Remove the input fields and wrapper from the body
@@ -105,7 +111,7 @@ function submitValues() {
 
 function cancelInput() {
     // Clear input fields
-    for (var i = 1; i <= 8; i++) {
+    for (let i = 1; i <= 8; i++) {
         document.getElementById('value' + i).value = '';
     }
 

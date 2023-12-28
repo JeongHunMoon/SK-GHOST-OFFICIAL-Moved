@@ -71,6 +71,7 @@ function questionFunction() {
                                 let userForAsking = results// 사용자의 프로필 설정 이름
                                 let userInput = prompt("Hello, manager " + userForAsking + "." + "\nAsk me!", "");
 
+
                                 if (userInput != null) {
                                     Kakao.API.request({
                                         url: '/v1/api/talk/friends/message/default/send',
