@@ -2,6 +2,9 @@
 function loginOPWithKakao() {
     let userRefreshToken = null; // 로그인 시 사용자로부터 refreshtoken을 받아옴.
     let nowUser = null//authObj.user_id // 현재 로그인을 시도한 사람의 카카오 id를 받아오기.
+    const button = document.getElementById("user_login")
+    button.disabled = true;
+    button.style.opacity = 0.7; // 투명도를 0.5로 설정
 
     Kakao.Auth.getStatusInfo(function(statusObj) {
         if (statusObj.status === 'connected') {
@@ -23,7 +26,7 @@ function loginOPWithKakao() {
 
                 if (results === "False") { // DB에 등록되지 않은 사용자이므로 경고창 후 로그인 차단
                     alert("시스템에 등록되지 않은 사람입니다." + "\nGHOST 팀에게 문의해 주세요.")
-                    //unlinkWithKakao() // 추후 이 코드 활성화 시켜 ROC이외 외부 인원을 차단시켜야함.
+                    unlinkWithKakao() // 추후 이 코드 활성화 시켜 ROC이외 외부 인원을 차단시켜야함.
                 }
                 else {
                     let checkedName = results.split(" ")[0]; // 사용자의 프로필 설정 이름
@@ -31,6 +34,8 @@ function loginOPWithKakao() {
                     alert("환영합니다 " + checkedName + "님");
                     window.location.href = '/OP'+'?uuid=' + hashValue; // OP 페이지로 이동하기 위한 get 요청
                 }
+                button.disabled = false;
+                button.style.opacity = 1; // 투명도를 0.5로 설정
             };
 
         } else {
@@ -72,7 +77,7 @@ function loginOPWithKakao() {
 
                             if (results === "False") { // DB에 등록되지 않은 사용자이므로 경고창 후 로그인 차단
                                 alert("시스템에 등록되지 않은 사람입니다." + "\nGHOST 팀에게 문의해 주세요.")
-                                //unlinkWithKakao() // 추후 이 코드 활성화 시켜 ROC이외 외부 인원을 차단시켜야함.
+                                unlinkWithKakao() // 추후 이 코드 활성화 시켜 ROC이외 외부 인원을 차단시켜야함.
                             }
                             else {
                                 let checkedName = results.split(" ")[0]; // 사용자의 프로필 설정 이름
@@ -81,6 +86,8 @@ function loginOPWithKakao() {
                                 alert("환영합니다 " + checkedName + "님");
                                 window.location.href = '/OP'+'?uuid=' + hashValue; // OP 페이지로 이동하기 위한 get 요청
                             }
+                            button.disabled = false;
+                            button.style.opacity = 1; // 투명도를 0.5로 설정
                         };
                     }
 
@@ -106,5 +113,6 @@ function loginOPWithKakao() {
             })
         }
     });
+
 }
 

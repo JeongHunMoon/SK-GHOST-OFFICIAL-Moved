@@ -1,6 +1,10 @@
 // 로그인을 통한 사용자 검증 > 이름 추출 후 text 파일 생성 > 정보 입력 받아 sendToFriend로 메시지 전송 (나는 우동균 에게만 보내기) > 다시 main으로 리다이랙트
 
 function questionFunction() {
+    const button = document.getElementById("question")
+    button.disabled = true;
+    button.style.opacity = 0.7; // 투명도를 0.5로 설정
+
     Kakao.Auth.getStatusInfo(function(statusObj) {
         if (statusObj.status === 'connected') {
             // 사용자가 이미 로그인한 상태입니다.
@@ -36,6 +40,8 @@ function questionFunction() {
             else {
                 alert("It's been canceled.");
             }
+            button.disabled = false;
+            button.style.opacity = 1; // 투명도를 0.5로 설정
 
         } else {
             Kakao.Auth.login({
@@ -65,7 +71,9 @@ function questionFunction() {
 
                             if (results === "False") { // DB에 등록되지 않은 사용자이므로 경고창 후 로그인 차단
                                 alert("시스템에 등록되지 않은 사람입니다." + "\nGHOST 팀에게 문의해 주세요.")
-                                //unlinkWithKakao() // 추후 이 코드 활성화 시켜 ROC이외 외부 인원을 차단시켜야함.
+                                button.disabled = false;
+                                button.style.opacity = 1; // 투명도를 0.5로 설정
+                                unlinkWithKakao() // 추후 이 코드 활성화 시켜 ROC이외 외부 인원을 차단시켜야함.
                             }
                             else {
                                 let userForAsking = results// 사용자의 프로필 설정 이름
@@ -98,15 +106,20 @@ function questionFunction() {
                                         },
                                         success: function (response) {
                                             alert("Thank you for question. Have a good day");
+                                            button.disabled = false;
+                                            button.style.opacity = 1; // 투명도를 0.5로 설정
                                         },
                                         fail: function (error) {
                                             alert("You have exceeded the number of questions per day");
-                                            console.log(error);
+                                            button.disabled = false;
+                                            button.style.opacity = 1; // 투명도를 0.5로 설정
                                         },
                                     });
                                 }
                                 else {
                                     alert("It's been canceled.");
+                                    button.disabled = false;
+                                    button.style.opacity = 1; // 투명도를 0.5로 설정
                                 }
                             }
                         };

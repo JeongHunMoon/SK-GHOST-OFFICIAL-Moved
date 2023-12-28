@@ -19,7 +19,7 @@ function loginAram(profile, name) {
 
     loginAlarmDiv.style.borderRadius = '50%';
     loginAlarmDiv.style.overflow = 'hidden';
-    loginAlarmDiv.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.5)'; // 그림자 추
+    loginAlarmDiv.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.5)'; // 그림자 추가
 
     // 이미지 추가
     const image = document.createElement('img');
@@ -41,13 +41,9 @@ function loginAram(profile, name) {
     nameSpan.textContent = name;
     document.body.appendChild(nameSpan);
 
-    // 애니메이션 추가
-    loginAlarmDiv.style.animation = 'loginAlarmAnimation 4s ease-in-out 0s 1';
-    nameSpan.style.animation = 'loginAlarmAnimation 4s ease-in-out 0.5s 1';
-
     // 애니메이션 키프레임 추가
     const styleSheet = document.styleSheets[0];
-    const keyframes = `
+    const loginAlarmKeyframes = `
         @keyframes loginAlarmAnimation {
             0% {
                 top: -20%;
@@ -62,6 +58,7 @@ function loginAram(profile, name) {
             50% {
                 top: 50px;
                 opacity: 1;
+                animation-timing-function: ease-out; // 머무는 동안의 타이밍 함수 조절
             }
 
             75% {
@@ -76,15 +73,59 @@ function loginAram(profile, name) {
         }
     `;
 
+    const nameSpanKeyframes = `
+        @keyframes nameSpanAnimation {
+            0% {
+                top: -20%;
+                opacity: 1;
+            }
+
+            25% {
+                top: 135px;
+                opacity: 1;
+            }
+
+            50% {
+                top: 135px;
+                opacity: 1;
+                animation-timing-function: ease-out; // 머무는 동안의 타이밍 함수 조절
+            }
+
+            75% {
+                top: 135px;
+                opacity: 1;
+            }
+
+            100% {
+                top: -20%;
+                opacity: 1;
+            }
+        }
+    `;
+
+    // 애니메이션 추가
+    loginAlarmDiv.style.animation = 'loginAlarmAnimation 5.5s ease-in-out 0s 1';
+    nameSpan.style.animation = 'nameSpanAnimation 5.5s ease-in-out 0.5s 1';
+
+    // 애니메이션 키프레임 추가
     try {
-        styleSheet.insertRule(keyframes, styleSheet.cssRules.length);
+        styleSheet.insertRule(loginAlarmKeyframes, styleSheet.cssRules.length);
+        styleSheet.insertRule(nameSpanKeyframes, styleSheet.cssRules.length);
     } catch (error) {
         // insertRule이 지원되지 않는 경우, addRule 사용
-        styleSheet.addRule('loginAlarmAnimation', keyframes, styleSheet.cssRules.length);
+        styleSheet.addRule('loginAlarmAnimation', loginAlarmKeyframes, styleSheet.cssRules.length);
+        styleSheet.addRule('nameSpanAnimation', nameSpanKeyframes, styleSheet.cssRules.length);
     }
-    // 0.5초 후에 오디오 재생
+
+    // 0.2초 후에 오디오 재생
     setTimeout(function () {
-        let audio = new Audio('../../sound/sound2.mp3');
+        let audio = new Audio('/sound/sound2.mp3');
         audio.play();
-    }, 500);
+    }, 200);
+
+    // 10초 후에 생성된 요소 제거
+    setTimeout(function () {
+        document.body.removeChild(loginAlarmDiv);
+        document.body.removeChild(nameSpan);
+    }, 10000);
 }
