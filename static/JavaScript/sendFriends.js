@@ -1,8 +1,11 @@
 function sendFriends() {
-    // DB에서 친구 목록 가져오기 AJAX
-    let friendList = [] //"CzoJOAExCTgBLRwkEyISIhUmFzsKOgoyCjkBSA"; // DB 요청 예정
-    let xhr_friend = new XMLHttpRequest();
+    const button = document.getElementById("custom-startwork-btn")
+    button.disabled = true;
+    button.style.opacity = 0.7; // 투명도를 0.5로 설정
 
+    // DB에서 친구 목록 가져오기 AJAX
+    let info = [] //"CzoJOAExCTgBLRwkEyISIhUmFzsKOgoyCjkBSA"; // DB 요청 예정
+    let xhr_friend = new XMLHttpRequest();
     let friendInfor = {"shift": "not"};
 
     xhr_friend.open('POST', '/goingToWork', true);
@@ -10,46 +13,57 @@ function sendFriends() {
     xhr_friend.send(JSON.stringify(friendInfor))
 
     xhr_friend.onload = function() {
-        let friendPayload = JSON.parse(xhr_friend.responseText)
+        let shiftAdminInfo = JSON.parse(xhr_friend.responseText)
 
-        for(let i = 0; i < friendPayload.length; i ++) {
-            if (friendPayload[i].priority === "1") {
-                friendList.push(friendPayload[i].uuid)
+        for(let i = 0; i < shiftAdminInfo.length; i ++) {
+            if (shiftAdminInfo[i].priority === "1") {
+                info.push(shiftAdminInfo[i])
             }
         }
+        console.log(info)
+        /*
+        안녕하십니까 [name] 매니저님, 금일 [12/28]일 [D] [전극 ][1]차 대응자 입니다.
+        [2]차 대응자로는 [name] 매니저님입니다.
+            좋은 하루 보내세요
+        */
 
-        Kakao.API.request({
-            url: '/v1/api/talk/friends/message/default/send',
-            data: {
-                //한번에 몇명까지 전송 가능한지 찾아봐야함.
-                receiver_uuids: friendList, //value의 format > ['sdfdsf123213' , 'fas213123fd']
-                template_object: {
-                    object_type: 'feed',
-                    content: {
-                        title: '친구에게 메시지 보내기 테스트',
-                        description: '왜 이제 전송이 안돼지?',
-                        image_url: 'http://mud-kage.kakao.co.kr/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png',
+        for(let i = 0; i < info.length; i++) {
+            let messageScript = "안녕하십니까? " + info[i].name + " 매니저님,\n" + "금일 " +info[i].date +"일 "
+                + info[i].shift + " " + info[i].process + " " + info[i].priority + "차 대응자 입니다.\n\n" +
+                "2차 대응자로는 " + "홍길동 매니저님 입니다.\n" + "좋은 하루 보내세요:)";
+
+            Kakao.API.request({
+                url: '/v1/api/talk/friends/message/default/send',
+                data: {
+                    //한번에 몇명까지 전송 가능한지 찾아봐야함.
+                    receiver_uuids: [info[i].uuid], //value의 format > ['sdfdsf123213' , 'fas213123fd']
+                    template_object: {
+                        object_type: 'text',
+                        text:
+                        messageScript,
                         link: {
-                            web_url: 'http://3.145.154.90:8080',
-                            mobile_web_url: 'http://3.145.154.90:8080',
+                            // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
+                            mobile_web_url: 'https://www.ghostalpharetta.com', // //https://developers.kakao.com
+                            web_url: 'https://www.ghostalpharetta.com'
                         },
                     },
-                    social: {
-                        like_count: 100,
-                        comment_count: 200,
-                    },
-                    button_title: '바로 확인',
                 },
-            },
-            success: function (response) {
-                alert("친구에게 보내기 성공");
-                window.location.href = '/'; // 메인으로 redirect
-            },
-            fail: function (error) {
-                alert("친구에게 보내기 실패");
-                console.log(error);
-                window.location.href = '/'; // 메인으로 redirect
-            },
-        });
+                success: function (response) {
+                    if (i === info.length - 1) {
+                        alert("친구에게 보내기 성공");
+                        button.disabled = false;
+                        button.style.opacity = 1; // 투명도를 0.5로 설정
+                        window.location.href = '/'; // 메인으로 redirect
+                    }
+                },
+                fail: function (error) {
+                    alert("친구에게 보내기 실패");
+                    console.log(error);
+                    button.disabled = false;
+                    button.style.opacity = 1; // 투명도를 0.5로 설정
+                    window.location.href = '/'; // 메인으로 redirect
+                },
+            });
+        }
     }
 }

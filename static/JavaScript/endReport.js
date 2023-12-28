@@ -1,5 +1,5 @@
 function endReport() {
-    // Create a wrapper for the input fields
+    // Crate a wrapper for the input fields
     let inputWrapper = document.createElement('div');
     inputWrapper.id = 'inputWrapper';
     inputWrapper.innerHTML = `
@@ -104,9 +104,6 @@ function submitValues() {
             alert('error: ' + JSON.stringify(err));
             window.location.href = '/'; // 메인으로 redirect
         });
-
-    // Remove the input fields and wrapper from the body
-
 }
 
 function cancelInput() {
