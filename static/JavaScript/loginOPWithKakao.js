@@ -5,6 +5,8 @@ function loginOPWithKakao() {
 
     Kakao.Auth.getStatusInfo(function(statusObj) {
         if (statusObj.status === 'connected') {
+            //loginAram(statusObj.user.kakao_account.profile.profile_image_url, statusObj.user.properties.nickname)
+            console.log(statusObj)
             console.log(statusObj.user.kakao_account.email); // 사용자 카카오 게정 확인
             nowUser = statusObj.user.kakao_account.email; // 사용자 카카오 계정
 
@@ -75,6 +77,7 @@ function loginOPWithKakao() {
                             else {
                                 let checkedName = results.split(" ")[0]; // 사용자의 프로필 설정 이름
                                 let hashValue = results.split(" ")[1]; // 서버에서 발급 받아 전달 받은 랜덤 uuid 값이며 이 값을 다시 서버에 요청하여 정상적으로 OP 페이지에 접속하도록 요청
+                                //loginAram(payload.kakao_account.profile.profile_image_url, checkedName);
                                 alert("환영합니다 " + checkedName + "님");
                                 window.location.href = '/OP'+'?uuid=' + hashValue; // OP 페이지로 이동하기 위한 get 요청
                             }
