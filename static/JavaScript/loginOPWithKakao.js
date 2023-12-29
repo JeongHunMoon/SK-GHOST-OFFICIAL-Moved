@@ -5,6 +5,7 @@ function loginOPWithKakao() {
     const button = document.getElementById("user_login")
     button.disabled = true;
     button.style.opacity = 0.7; // 투명도를 0.5로 설정
+    loadingOn()
 
     Kakao.Auth.getStatusInfo(function(statusObj) {
         if (statusObj.status === 'connected') {
@@ -26,16 +27,20 @@ function loginOPWithKakao() {
 
                 if (results === "False") { // DB에 등록되지 않은 사용자이므로 경고창 후 로그인 차단
                     alert("시스템에 등록되지 않은 사람입니다." + "\nGHOST 팀에게 문의해 주세요.")
+                    loadingOff()
+                    button.disabled = false;
+                    button.style.opacity = 1; // 투명도를 0.5로 설정
                     unlinkWithKakao() // 추후 이 코드 활성화 시켜 ROC이외 외부 인원을 차단시켜야함.
                 }
                 else {
                     let checkedName = results.split(" ")[0]; // 사용자의 프로필 설정 이름
                     let hashValue = results.split(" ")[1]; // 서버에서 발급 받아 전달 받은 랜덤 uuid 값이며 이 값을 다시 서버에 요청하여 정상적으로 OP 페이지에 접속하도록 요청
                     alert("환영합니다 " + checkedName + "님");
+                    loadingOff()
+                    button.disabled = false;
+                    button.style.opacity = 1; // 투명도를 0.5로 설정
                     window.location.href = '/OP'+'?uuid=' + hashValue; // OP 페이지로 이동하기 위한 get 요청
                 }
-                button.disabled = false;
-                button.style.opacity = 1; // 투명도를 0.5로 설정
             };
 
         } else {
@@ -77,6 +82,9 @@ function loginOPWithKakao() {
 
                             if (results === "False") { // DB에 등록되지 않은 사용자이므로 경고창 후 로그인 차단
                                 alert("시스템에 등록되지 않은 사람입니다." + "\nGHOST 팀에게 문의해 주세요.")
+                                loadingOff()
+                                button.disabled = false;
+                                button.style.opacity = 1; // 투명도를 0.5로 설정
                                 unlinkWithKakao() // 추후 이 코드 활성화 시켜 ROC이외 외부 인원을 차단시켜야함.
                             }
                             else {
@@ -84,10 +92,11 @@ function loginOPWithKakao() {
                                 let hashValue = results.split(" ")[1]; // 서버에서 발급 받아 전달 받은 랜덤 uuid 값이며 이 값을 다시 서버에 요청하여 정상적으로 OP 페이지에 접속하도록 요청
                                 //loginAram(payload.kakao_account.profile.profile_image_url, checkedName);
                                 alert("환영합니다 " + checkedName + "님");
+                                loadingOff()
+                                button.disabled = false;
+                                button.style.opacity = 1; // 투명도를 0.5로 설정
                                 window.location.href = '/OP'+'?uuid=' + hashValue; // OP 페이지로 이동하기 위한 get 요청
                             }
-                            button.disabled = false;
-                            button.style.opacity = 1; // 투명도를 0.5로 설정
                         };
                     }
 
@@ -109,6 +118,9 @@ function loginOPWithKakao() {
                 },
                 fail: async function (err) { // 로그인 실패시 오류 값 반환
                     alert("시스템에 등록되지 않은 사람입니다." + "\nGHOST 팀에게 문의해 주세요.")
+                    loadingOff()
+                    button.disabled = false;
+                    button.style.opacity = 1; // 투명도를 0.5로 설정
                 },
             })
         }

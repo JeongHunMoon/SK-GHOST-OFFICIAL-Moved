@@ -21,6 +21,9 @@ function sendToMe() {
                         info.push(shiftAdminInfo[i])
                     }
                 }
+                if (info.length === 0) {
+                    return;
+                }
 
                 // id에 해당하는 사용자 이름 infor에서 가져오고,
                 let xhr_me = new XMLHttpRequest();
@@ -38,9 +41,6 @@ function sendToMe() {
                     }
                     else {
                         let num = "";
-                        // OP 이름 opName
-                        // 현재 시간으로 shift 구분 >
-                        // info에서 전 > 조 > 화 > 모 순서로 정
                         console.log(info)
                         console.log(opName)
 
@@ -95,6 +95,4 @@ function sendToMe() {
             window.location.href = '/'
         }
     });
-
-
 }

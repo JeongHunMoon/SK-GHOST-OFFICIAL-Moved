@@ -51,18 +51,18 @@ function loginAram(profile, name) {
             }
 
             25% {
-                top: 50px;
+                top: 10%;
                 opacity: 1;
             }
 
             50% {
-                top: 50px;
+                top: 10%;
                 opacity: 1;
                 animation-timing-function: ease-out; // 머무는 동안의 타이밍 함수 조절
             }
 
             75% {
-                top: 50px;
+                top: 10%;
                 opacity: 1;
             }
 
@@ -81,18 +81,18 @@ function loginAram(profile, name) {
             }
 
             25% {
-                top: 135px;
+                top: 21%;
                 opacity: 1;
             }
 
             50% {
-                top: 135px;
+                top: 21%;
                 opacity: 1;
                 animation-timing-function: ease-out; // 머무는 동안의 타이밍 함수 조절
             }
 
             75% {
-                top: 135px;
+                top: 21%;
                 opacity: 1;
             }
 
@@ -127,5 +127,5 @@ function loginAram(profile, name) {
     setTimeout(function () {
         document.body.removeChild(loginAlarmDiv);
         document.body.removeChild(nameSpan);
-    }, 10000);
+    }, 7000);
 }

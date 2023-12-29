@@ -79,7 +79,8 @@ function submitValues() {
         }
     }
 
-    let endReportText = "SOP: New: " + values[0] + " Done" + values[2] + " Open: " + values[4] + " Transferred: " + values[6] + "\nITS: New: " + values[1] + " Done: " + values[3] + " Waiting: " + values[5] + " Transferred: " + values[7]
+    let endReportText = "SOP: New " + values[0] + ", Done " + values[2] + ", Open " + values[4] + ", Transferred " + values[6]
+        + "\nITS: New " + values[1] + ", Done " + values[3] + ", Waiting " + values[5] + ", Transferred " + values[7]
     console.log(endReportText)
 
     Kakao.API.request({

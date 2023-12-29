@@ -2,6 +2,7 @@ function sendFriends() {
     const button = document.getElementById("custom-startwork-btn")
     button.disabled = true;
     button.style.opacity = 0.7; // 투명도를 0.5로 설정
+    loadingOn()
 
     // DB에서 친구 목록 가져오기 AJAX
     let info = [] //"CzoJOAExCTgBLRwkEyISIhUmFzsKOgoyCjkBSA"; // DB 요청 예정
@@ -20,12 +21,14 @@ function sendFriends() {
                 info.push(shiftAdminInfo[i])
             }
         }
+        if (info.length === 0) {
+            alert("DB에 오늘 운영자가 없네요?\n오늘은 수동으로 출근 보고 해주시고, GHOST 팀에게 이를 알려주세요!")
+            button.disabled = false;
+            button.style.opacity = 1; // 투명도를 0.5로 설정
+            loadingOff()
+            window.location.href = '/'; // 메인으로 redirect
+        }
         console.log(info)
-        /*
-        안녕하십니까 [name] 매니저님, 금일 [12/28]일 [D] [전극 ][1]차 대응자 입니다.
-        [2]차 대응자로는 [name] 매니저님입니다.
-            좋은 하루 보내세요
-        */
 
         for(let i = 0; i < info.length; i++) {
             let messageScript = "안녕하십니까? " + info[i].name + " 매니저님,\n" + "금일 " +info[i].date +"일 "
@@ -53,6 +56,7 @@ function sendFriends() {
                         alert("친구에게 보내기 성공");
                         button.disabled = false;
                         button.style.opacity = 1; // 투명도를 0.5로 설정
+                        loadingOff()
                         window.location.href = '/'; // 메인으로 redirect
                     }
                 },
@@ -61,6 +65,7 @@ function sendFriends() {
                     console.log(error);
                     button.disabled = false;
                     button.style.opacity = 1; // 투명도를 0.5로 설정
+                    loadingOff()
                     window.location.href = '/'; // 메인으로 redirect
                 },
             });

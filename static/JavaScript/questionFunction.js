@@ -15,6 +15,7 @@ function questionFunction() {
             let userInput = prompt("Hello, manager " + userForAsking + "." + "\nAsk me!", "");
 
             if (userInput != null) {
+                loadingOn()
                 Kakao.API.request({
                     url: '/v1/api/talk/friends/message/default/send',
                     data: {
@@ -30,9 +31,11 @@ function questionFunction() {
                     },
                     success: function (response) {
                         alert("Thank you for question. Have a good day");
+                        loadingOff()
                     },
                     fail: function (error) {
                         alert("You have exceeded the number of questions per day");
+                        loadingOff()
                         console.log(error);
                     },
                 });
@@ -44,6 +47,7 @@ function questionFunction() {
             button.style.opacity = 1; // 투명도를 0.5로 설정
 
         } else {
+            loadingOn()
             Kakao.Auth.login({
                 success: function (authObj) {
                     Kakao.Auth.setAccessToken(authObj.access_token); // 로그인시 발급된 토큰으로 설정
@@ -71,16 +75,19 @@ function questionFunction() {
 
                             if (results === "False") { // DB에 등록되지 않은 사용자이므로 경고창 후 로그인 차단
                                 alert("시스템에 등록되지 않은 사람입니다." + "\nGHOST 팀에게 문의해 주세요.")
+                                loadingOff()
                                 button.disabled = false;
                                 button.style.opacity = 1; // 투명도를 0.5로 설정
                                 unlinkWithKakao() // 추후 이 코드 활성화 시켜 ROC이외 외부 인원을 차단시켜야함.
                             }
                             else {
+                                loadingOff()
                                 let userForAsking = results// 사용자의 프로필 설정 이름
                                 let userInput = prompt("Hello, manager " + userForAsking + "." + "\nAsk me!", "");
 
 
                                 if (userInput != null) {
+                                    loadingOn()
                                     Kakao.API.request({
                                         url: '/v1/api/talk/friends/message/default/send',
                                         data: {
@@ -106,11 +113,13 @@ function questionFunction() {
                                         },
                                         success: function (response) {
                                             alert("Thank you for question. Have a good day");
+                                            loadingOff()
                                             button.disabled = false;
                                             button.style.opacity = 1; // 투명도를 0.5로 설정
                                         },
                                         fail: function (error) {
                                             alert("You have exceeded the number of questions per day");
+                                            loadingOff()
                                             button.disabled = false;
                                             button.style.opacity = 1; // 투명도를 0.5로 설정
                                         },
@@ -127,6 +136,9 @@ function questionFunction() {
                 },
                 fail: async function (err) { // 로그인 실패시 오류 값 반환
                     alert("시스템에 등록되지 않은 사람입니다." + "\nGHOST 팀에게 문의해 주세요.")
+                    loadingOff()
+                    button.disabled = false;
+                    button.style.opacity = 1; // 투명도를 0.5로 설정
                 },
             })
         }

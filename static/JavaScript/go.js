@@ -1,1 +1,3 @@
-function go() {}
+function go(){
+
+}

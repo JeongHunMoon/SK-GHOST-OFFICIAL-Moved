@@ -145,6 +145,8 @@ html {
     font-style: normal;
     font-weight: 700;
     line-height: normal;
+
+    cursor: pointer;
 }
 #custom-endwork-btn{
     display: flex;
@@ -174,6 +176,8 @@ html {
     font-style: normal;
     font-weight: 700;
     line-height: normal;
+
+    cursor: pointer;
 }
 
 .bntText {
